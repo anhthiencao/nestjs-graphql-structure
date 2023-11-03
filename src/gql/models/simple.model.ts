@@ -15,5 +15,5 @@ export class Simple {
   public content?: string;
   public tags?: string[];
 
-  public createdAt?: Date;
+  public created_at?: Date;
 }

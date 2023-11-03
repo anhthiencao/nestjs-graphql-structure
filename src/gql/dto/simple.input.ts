@@ -1,5 +1,5 @@
 import { InputType } from '@nestjs/graphql';
-import { ArrayNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class SimpleInput {
@@ -10,7 +10,7 @@ export class SimpleInput {
   @IsString()
   public content?: string;
 
-  @ArrayNotEmpty()
+  // @ArrayNotEmpty()
   @IsString({ each: true })
   public tags!: string[];
 }

@@ -44,6 +44,18 @@ export class SimpleResolver {
   }
 
   @Query(() => [Simple])
+  public async findAll(): Promise<Simple[]> {
+    this.logger.info('read');
+
+    const simple = await this.simpleService.findAll();
+    if (!simple) {
+      throw new NotFoundException('NotFoundData');
+    }
+
+    return simple;
+  }
+
+  @Query(() => [Simple])
   public async find(@Args() simpleArgs: SimpleArgs): Promise<Simple[]> {
     this.logger.info('find');
 

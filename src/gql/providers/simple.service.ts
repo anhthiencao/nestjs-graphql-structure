@@ -7,6 +7,11 @@ import { Sampletable1 } from '#entity/sampledb1';
 import { UtilService } from '../../common';
 import type { SimpleInput, SimpleArgs } from '../dto';
 import { Simple } from '../models';
+import {
+  paginate,
+
+} from 'nestjs-typeorm-paginate';
+
 
 @Injectable()
 export class SimpleService {
@@ -33,6 +38,22 @@ export class SimpleService {
     return Object.assign(new Simple(), row, { createdAt: row.created_at });
   }
 
+  public async findAll(): Promise<Simple[]> {
+    this.logger.info('find');
+
+    const result = await this.sampletable.find({
+      take: 1
+
+    })
+    console.log({result : await paginate(this.sampletable, {
+      limit: 1,
+      page: 1,
+      route: 'samples'
+    })})
+
+    return result
+  }
+
   public async find(args: SimpleArgs): Promise<Simple[]> {
     this.logger.info('find');
 
@@ -40,6 +61,7 @@ export class SimpleService {
       this.util.removeUndefined({
         title: args.title,
         content: args.content,
+
       }),
     );
 
